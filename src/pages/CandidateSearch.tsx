@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { searchGithub, searchGithubUser } from '../api/API';
 import type {Candidate} from '../interfaces/Candidate.interface';
 import CandidateCard from '../components/CandidateCard';
@@ -48,8 +48,13 @@ const userChoice = async (isSelected: boolean) => {
     await searchForUsers();
   }
 }
-  return <h1>CandidateSearch</h1>;
+  return (
+  <>
+  <h1>Candidate Search</h1>
+  <h2>Hire your next developer here!</h2>
   <CandidateCard currentUser={currentUser} userChoice={userChoice} />
+  </>
+  );
 };
 
 export default CandidateSearch;
