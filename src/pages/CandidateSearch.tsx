@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { searchGithub, searchGithubUser } from '../api/API';
 import type {Candidate} from '../interfaces/Candidate.interface';
 import CandidateCard from '../components/CandidateCard';
@@ -17,6 +17,10 @@ const [currentUser, setCurrentUser] = useState<Candidate>({
     avatar_url: null,
 });
 const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+useEffect(() => {
+  searchForUsers();
+}, []);
 
 const searchForSpecUser = async (user: string) => {
   const data: Candidate = await searchGithubUser(user);
@@ -51,7 +55,6 @@ const userChoice = async (isSelected: boolean) => {
   return (
   <>
   <h1>Candidate Search</h1>
-  <h2>Hire your next developer here!</h2>
   <CandidateCard currentUser={currentUser} userChoice={userChoice} />
   </>
   );
