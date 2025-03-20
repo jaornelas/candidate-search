@@ -27,16 +27,16 @@ const CandidateCard = ({ currentUser, userChoice }: CandidateCardProps) => {
 
           <section
             style={{
-              backgroundColor: '#fff',
+              backgroundColor: '#000',
               width: '280px',
-              borderRadius: '0 0 40px 40px',
-              padding: '0 12px 12px',
+              borderRadius: '0 0 30px 30px',
+              padding: '0 10px 10px',
             }}
           >
             {currentUser?.html_url && currentUser?.login ? (
               <a href={currentUser.html_url} target='_blank' rel='noreferrer'>
                 <h2
-                  style={{ padding: 0, margin: '-7px 0 0 0', color: 'black' }}
+                  style={{ padding: 0, margin: '-7px 0 0 0', color: 'white' }}
                 >
                   {currentUser.name}
                   <em>({currentUser.login})</em>
