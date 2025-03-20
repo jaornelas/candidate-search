@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { searchGithub, searchGithubUser } from '../api/API';
 import type {Candidate} from '../interfaces/Candidate.interface';
+import CandidateCard from '../components/CandidateCard';
 
 const CandidateSearch = () => {
 const [results, setResults] = useState<Candidate[]>([]);
@@ -27,9 +28,28 @@ const searchForUsers = async () => {
   setResults(data);
 
   await searchForSpecUser(data[currentIndex].login || '');
-}
+};
 
+const userChoice = async (isSelected: boolean) => {
+  if (isSelected) {
+    let parsedCandidates: Candidate[] = [];
+    const savedCandidates = localStorage.getItem('savedCandidates');
+    if (typeof savedCandidates === 'string') {
+      parsedCandidates = JSON.parse(savedCandidates);
+    }
+    parsedCandidates.push(currentUser);
+    localStorage.setItem('savedCandidates', JSON.stringify(parsedCandidates));
+  }
+  if (currentIndex + 1 < results.length) {
+    setCurrentIndex(currentIndex + 1);
+    await searchForSpecUser(results[currentIndex + 1].login || '');
+  } else {
+    setCurrentIndex(0);
+    await searchForUsers();
+  }
+}
   return <h1>CandidateSearch</h1>;
+  <CandidateCard currentUser={currentUser} userChoice={userChoice} />
 };
 
 export default CandidateSearch;
